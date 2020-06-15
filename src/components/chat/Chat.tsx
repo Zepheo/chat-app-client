@@ -30,7 +30,7 @@ export default function Chat(): JSX.Element {
   const user: UserState = useSelector((state: RootState) => state.User);
   const [ loaded, setloaded ] = useState(false);
 
-  const url = 'salty-earth-56339.herokuapp.com';
+  const url = 'localhost:8080';
 
   useEffect(() => {
     socket = io(url, {
