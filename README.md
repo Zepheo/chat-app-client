@@ -7,3 +7,9 @@ To run it locally you will also need the server application (https://github.com/
   - install the dependencies with your prefered package manager
   - run the start script
   - if it doesn't open the browser by itself, go to http://localhost:3000 or the port you've specified
+
+## Tech
+  - React
+  - Redux
+  - Socket.io
+  - Typescript
