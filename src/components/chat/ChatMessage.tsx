@@ -1,8 +1,8 @@
-import React from 'react'
-import { makeStyles, ListItem, ListItemText, Typography } from '@material-ui/core'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/reducers'
-import { UserState } from '../../types'
+import React from 'react';
+import { makeStyles, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/reducers';
+import { UserState } from '../../types';
 
 const useStyles = makeStyles({
   chatMessage: {
@@ -27,12 +27,11 @@ const useStyles = makeStyles({
     paddingLeft: 10,
     paddingRight: 10,
   },
-})
+});
 
-export default function ChatMessage({name, message}: {name: string, message: string}) {
+export default function ChatMessage({name, message}: {name: string, message: string}): JSX.Element {
   const classes = useStyles();
   const user: UserState = useSelector((state: RootState) => state.User);
-  console.log(name, user.name)
 
   return (
     <ListItem className={name === user.name ? classes.chatMessageSelf : classes.chatMessage}>
@@ -47,5 +46,5 @@ export default function ChatMessage({name, message}: {name: string, message: str
         }
       />
     </ListItem>
-  )
+  );
 }

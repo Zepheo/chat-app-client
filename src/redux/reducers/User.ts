@@ -1,33 +1,34 @@
 import {ChatActionType, UserState } from '../../types';
+import { SET_USER, ADD_MESSAGE, SET_ERROR, RESET} from '../actions/actionTypes';
 
 const initialState: UserState = {
-  name: undefined,
+  name: '',
   messages: [],
-  error: undefined,
+  error: '',
 };
 
-const User = (state = initialState, action: ChatActionType) => {
+const User = (state = initialState, action: ChatActionType): UserState => {
   switch (action.type) {
-    case 'SET_USER':
+    case SET_USER:
       return {
         ...state,
         name: action.name
-      }
-    case 'ADD_MESSAGE':
+      };
+    case ADD_MESSAGE:
       return {
         ...state,
         messages: [ ...state.messages, action.message ]
       };
-    case 'SET_ERROR':
+    case SET_ERROR:
       return {
         ...initialState,
         error: action.error
       };
-    case 'RESET':
+    case RESET:
       return initialState;
     default:
       return state;
   }
-}
+};
 
 export default User;

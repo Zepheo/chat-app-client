@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser } from '../../redux/actions';
 import { RootState } from '../../redux/reducers';
@@ -22,10 +22,10 @@ const useStyles = makeStyles({
   joinError: {
     color: 'red',
   }
-})
+});
 
 
-export default function Join() {
+export default function Join(): JSX.Element {
   const classes = useStyles();
   const dispatch = useDispatch();
   const user: UserState = useSelector((state: RootState) => state.User);
@@ -40,7 +40,7 @@ export default function Join() {
         action="."
         onSubmit={(e) => {
           e.preventDefault();
-          dispatch(setUser(name))
+          dispatch(setUser(name));
         }}
         className={classes.joinForm}
       > 
@@ -60,5 +60,5 @@ export default function Join() {
       </form>
       
     </div>
-  )
+  );
 }

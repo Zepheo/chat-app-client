@@ -18,9 +18,9 @@ const useStyles = makeStyles({
     padding: 30,
     borderRadius: 10,
   },
-})
+});
 
-function App() {
+function App(): JSX.Element {
   const classes = useStyles();
   const user: UserState = useSelector((state: RootState) => state.User);
 

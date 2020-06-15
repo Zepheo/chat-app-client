@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { TextField, Button} from '@material-ui/core';
 
-function ChatInput({sendMessage}: {sendMessage: (message:string) => void}) {
+function ChatInput({sendMessage}: {sendMessage: (message:string) => void}): JSX.Element {
   const [ message, setMessage ] = useState('');
 
   return (
@@ -10,8 +10,8 @@ function ChatInput({sendMessage}: {sendMessage: (message:string) => void}) {
       onSubmit={(e) => {
         e.preventDefault();
         if (message === '') return;
-        sendMessage(message)
-        setMessage('')
+        sendMessage(message);
+        setMessage('');
       }}
       style={{width: '100%', display: 'flex'}}
     >
@@ -29,7 +29,7 @@ function ChatInput({sendMessage}: {sendMessage: (message:string) => void}) {
         Send
       </Button>
     </form>
-  )
+  );
 }
 
 export default ChatInput;

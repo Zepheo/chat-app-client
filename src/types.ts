@@ -1,20 +1,34 @@
-import { Action } from "redux";
+import { ADD_MESSAGE, SET_USER, SET_ERROR, RESET } from './redux/actions/actionTypes';
 
-export interface MessageType {
+export interface Message {
   user: string,
   text: string,
 }
 
-export interface ChatActionType extends Action{
-  name?: string,
-  message?: MessageType,
-  error?: Error,
+interface AddMessageAction {
+  type: typeof ADD_MESSAGE,
+  message: Message  
 }
 
+interface SetUserAction {
+  type: typeof SET_USER,
+  name: string
+}
+
+interface SetErrorAction {
+  type: typeof SET_ERROR,
+  error: Error
+}
+interface ResetAction {
+  type: typeof RESET
+}
+
+export type ChatActionType = AddMessageAction | SetUserAction | SetErrorAction | ResetAction
+
 export interface UserState {
-  name: string | undefined,
-  messages: MessageType[],
-  error: Error | undefined,
+  name: string,
+  messages: Message[],
+  error: Error | string,
 }
 
 export enum Error {

@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-
-import { MessageType } from '../../types';
-import ChatMessage from './ChatMessage';
 import { List } from '@material-ui/core';
+
+import { Message } from '../../types';
+import ChatMessage from './ChatMessage';
 
 const useStyles = makeStyles({
   chatWindow: {
@@ -15,10 +15,10 @@ const useStyles = makeStyles({
       display:'none'
     },
   },  
-})
+});
 
 
-export default function ChatMessages({chatMessages}: {chatMessages: MessageType[]}) {
+export default function ChatMessages({chatMessages}: {chatMessages: Message[]}): JSX.Element {
   const classes = useStyles();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -33,15 +33,15 @@ export default function ChatMessages({chatMessages}: {chatMessages: MessageType[
   }, [chatMessages]); 
 
   return ( 
-      <List className={classes.chatWindow}>
-        {chatMessages.map((message, index) => 
-          <ChatMessage 
+    <List className={classes.chatWindow}>
+      {chatMessages.map((message, index) => 
+        <ChatMessage 
           key={index}
           name={message.user}
           message={message.text}
-          />
-          )}
-        <div ref={messagesEndRef} />
-      </List>
-  )
+        />
+      )}
+      <div ref={messagesEndRef} />
+    </List>
+  );
 }

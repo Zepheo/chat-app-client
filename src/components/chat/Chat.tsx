@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import io from 'socket.io-client';
 import { RootState } from '../../redux/reducers';
 import { addMessage, setError, reset } from '../../redux/actions';
 import ChatInput from './ChatInput';
-import { Error, UserNameError, MessageType, UserState } from '../../types';
+import { Error, UserNameError, Message, UserState } from '../../types';
 import { CircularProgress, Button, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ChatMessages from './ChatMessages';
@@ -19,16 +19,16 @@ const useStyles = makeStyles({
     maxWidth: 400,
     overflow: 'hidden',
   },
-})
+});
 
 
 let socket: SocketIOClient.Socket;
 
-export default function Chat() {
+export default function Chat(): JSX.Element {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const user: UserState = useSelector((state: RootState) => state.User);
-  const [ loaded, setloaded ] = useState(false)
+  const [ loaded, setloaded ] = useState(false);
 
   const url = 'localhost:8080';
 
@@ -39,49 +39,49 @@ export default function Chat() {
 
     socket.emit('join', { name: user.name }, (error: UserNameError) => {
       if (error) {
-        dispatch(setError(Error.taken))
+        dispatch(setError(Error.taken));
         return socket.close();
       }
       setloaded(true);
     });
 
-    socket.on('message', (message: MessageType) => {
+    socket.on('message', (message: Message) => {
       dispatch(addMessage(message));
     });
 
     socket.on('disconnect', (reason: string) => {
       if (reason === 'io server disconnect') {
-        dispatch(setError(Error.inactive))
+        dispatch(setError(Error.inactive));
         socket.close();
       }
     });
 
-    socket.on('connect_error', (error: Error) => {
-      dispatch(setError(Error.unavailable))
+    socket.on('connect_error', () => {
+      dispatch(setError(Error.unavailable));
       socket.close();
-    })
+    });
 
-    socket.on('error', (error: Error) => {
-      dispatch(setError(Error.strange))
+    socket.on('error', () => {
+      dispatch(setError(Error.strange));
       socket.close();
-    })
+    });
 
     return () => {
       socket.emit('disconnect');
 
       socket.close();
-    }
+    };
   }, [user.name, dispatch]);
 
   const handleSendMessage = (messageString: string) => {
     socket.emit('userMessage', messageString);
-  }
+  };
 
   const handleLeave = () => {
     socket.emit('disconnect');
     socket.close();
     dispatch(reset());
-  }
+  };
 
   return (
     loaded ? (
@@ -97,5 +97,5 @@ export default function Chat() {
     ): (
       <CircularProgress />
     )
-  )
+  );
 }
