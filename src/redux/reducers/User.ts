@@ -12,7 +12,8 @@ const User = (state = initialState, action: ChatActionType): UserState => {
     case SET_USER:
       return {
         ...state,
-        name: action.name
+        name: action.name,
+        error: ''
       };
     case ADD_MESSAGE:
       return {
