@@ -1,25 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from 'react-redux';
+import { Container } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+import { RootState } from './redux/reducers';
+import Join from './components/join/Join';
+import Chat from './components/chat/Chat';
+import { UserState } from './types';
+
+const useStyles = makeStyles({
+  wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: 'lightgray',
+    padding: 30,
+    borderRadius: 10,
+  },
+})
 
 function App() {
+  const classes = useStyles();
+  const user: UserState = useSelector((state: RootState) => state.User);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container className={classes.wrapper} maxWidth='sm'>
+      { !user.name ? <Join /> : <Chat />}
+    </Container>
   );
 }
 
